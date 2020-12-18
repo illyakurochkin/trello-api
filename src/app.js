@@ -30,10 +30,28 @@ app.get('/boards', async (req, res) => {
 
   if(!email) {
     res.sendStatus(403);
+    return;
   }
 
   const boards = await Board.find({members: {$all: [email]}});
   console.log('boards', boards);
+  res.send(boards);
+});
+
+app.post('/boards', async (req, res) => {
+  const email = req && req.locals && req.locals.email;
+
+  if(!email) {
+    res.sendStatus(403);
+    return;
+  }
+
+  const boards = await Board.create({
+    name: req.body.name,
+    members: [email],
+    columns: [],
+  });
+
   res.send(boards);
 });
 

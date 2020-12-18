@@ -3,7 +3,7 @@ const mongoose = require('./db');
 const {Schema} = mongoose;
 
 const BoardSchema = new Schema({
-  name: String
+  name: String,
 });
 
 BoardSchema.set('strict', false);
